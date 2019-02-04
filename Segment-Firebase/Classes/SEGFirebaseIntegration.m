@@ -18,8 +18,13 @@
             SEGLog(@"[FIROptions defaultOptions].deepLinkURLScheme = %@;", deepLinkURLScheme);
         }
 
-        [FIRApp configure];
-        SEGLog(@"[FIRApp Configure]");
+        // Configure FirebaseApp if it is not already configured
+        if (![FIRApp defaultApp]) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [FIRApp configure];
+                SEGLog(@"[FIRApp Configure]");
+            });
+        }
     }
     return self;
 }
